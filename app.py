@@ -40,5 +40,14 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', post=post)
 
+@app.route('/post/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    # Add verification here to make sure the current user is the author of the post
+    db.session.delete(post)
+    db.session.commit()
+    # Flash a message or log the deletion
+    return redirect(url_for('home'))
+
 if __name__ == '__main__':
     app.run(debug=True)
