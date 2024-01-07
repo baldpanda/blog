@@ -1,0 +1,13 @@
+<!-- templates/post.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Head elements like title, CSS link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <!-- Add more post details as needed -->
+</body>
+</html>

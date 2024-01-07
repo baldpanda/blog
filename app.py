@@ -11,7 +11,8 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database file
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'site.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -20,7 +21,8 @@ from models import User, Post
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    posts = Post.query.all()
+    return render_template('index.html', posts=posts)
 
 
 @app.route('/post/new', methods=['GET', 'POST'])
@@ -32,6 +34,11 @@ def create_post():
         db.session.commit()
         return redirect(url_for('home'))
     return render_template('create_post.html', title='New Post', form=form)
+
+@app.route('/post/<int:post_id>')
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', post=post)
 
 if __name__ == '__main__':
     app.run(debug=True)

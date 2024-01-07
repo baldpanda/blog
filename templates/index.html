@@ -17,4 +17,13 @@
         <p>© 2024 My Flask Blog</p>
     </footer>
 </body>
+<body>
+    {% for post in posts %}
+        <div>
+            <h2><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <p>{{ post.content | safe }}</p>
+            <!-- Other post details -->
+        </div>
+    {% endfor %}
+</body>
 </html>
