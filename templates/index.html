@@ -12,20 +12,19 @@
         <a href="{{ url_for('create_post') }}" class="new-post-link"> Create New Post </a>
     </header>
     <section>
-        <img src="{{ url_for('static', filename='images/profile_image.png') }}" alt="Bald Panda Image" class="homepage-image">
+        
         <!-- Blog posts will go here -->
-    </section>
-    <footer>
-        <p>Bald Panda Blog</p>
-    </footer>
-</body>
-<body>
-    {% for post in posts %}
+        {% for post in posts %}
         <div>
             <h2><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p>{{ post.content | safe }}</p>
             <!-- Other post details -->
         </div>
-    {% endfor %}
+        {% endfor %}
+        <img src="{{ url_for('static', filename='images/profile_image.png') }}" alt="Bald Panda Image" class="homepage-image">
+    </section>
+    <footer>
+        <p>Bald Panda Blog</p>
+    </footer>
 </body>
 </html>
