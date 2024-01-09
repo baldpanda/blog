@@ -33,3 +33,14 @@ img {
     margin: 0 auto;
     padding: 0 auto;
 }
+
+.new-post-link {
+    /* Your CSS styles here */
+    display: inline-block;
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
