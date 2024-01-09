@@ -27,11 +27,16 @@ img {
     margin: 0 auto;
 }
 
+section, img {
+    margin: 0;
+    padding: 0;
+}
+
 .homepage-image {
-    transform: scale(0.5); /* Scales the image to 50% of its original size */
-    transform-origin: center;
-    margin: 0 auto;
-    padding: 0 auto;
+    display: block;
+    width: 10%; /* or any size that suits your layout */
+    height: auto;
+    margin: 0 auto; /* Removes margin and centers the image */
 }
 
 .new-post-link {
