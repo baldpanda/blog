@@ -49,5 +49,10 @@ def delete_post(post_id):
     # Flash a message or log the deletion
     return redirect(url_for('home'))
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # Note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
 if __name__ == '__main__':
     app.run(debug=True)
