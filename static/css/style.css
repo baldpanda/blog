@@ -49,3 +49,20 @@ section, img {
     text-decoration: none;
     border-radius: 5px;
 }
+
+input[type="text"], textarea {
+    width: 100%; /* Makes the input take the full width of its parent container */
+    padding: 10px; /* Adds some padding inside the input for better text visibility */
+    margin: 8px 0; /* Adds some margin for spacing between fields */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+textarea {
+    height: 200px; /* Sets a fixed height for the textarea */
+    resize: vertical; /* Allows the user to vertically resize the textarea */
+}
+
+form {
+    max-width: 800px; /* Sets a maximum width for the form */
+    margin: auto; /* Centers the form in the page */
+}

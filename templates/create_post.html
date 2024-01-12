@@ -12,29 +12,21 @@
     <header>
         <h1>Create a New Post</h1>
     </header>
-    <form method="POST">
+    <form method="post" action="{{ url_for('create_post') }}">
         {{ form.hidden_tag() }}
-        <div>
-            <label for="title">Title</label>
-            {{ form.title }}
-            {% if form.title.errors %}
-                {% for error in form.title.errors %}
-                    <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div>
-            <label for="content">Content</label>
-            {{ form.content }}
-            {% if form.content.errors %}
-                {% for error in form.content.errors %}
-                    <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div>
-            {{ form.submit }}
-        </div>
+        <label for="title">Title</label>
+        {{ form.title(id='title') }}
+        {% for error in form.title.errors %}
+            <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    
+        <label for="content">Content</label>
+        {{ form.content(id='content') }}
+        {% for error in form.content.errors %}
+            <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    
+        {{ form.submit() }}
     </form>
     <a href="{{ url_for('home') }}" class="new-post-link">Back to Home</a>
     <footer>
