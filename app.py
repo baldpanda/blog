@@ -20,12 +20,14 @@ from models import Post  # noqa: E402
 
 @app.route("/")
 def home():
+    """Home page for blog."""
     posts = Post.query.all()
     return render_template("index.html", posts=posts)
 
 
 @app.route("/post/new", methods=["GET", "POST"])
 def create_post():
+    """Page for creating a new post."""
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data)
@@ -37,12 +39,14 @@ def create_post():
 
 @app.route("/post/<int:post_id>")
 def post(post_id):
+    """Page for viewing a single post."""
     post = Post.query.get_or_404(post_id)
     return render_template("post.html", post=post)
 
 
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
 def delete_post(post_id):
+    """Endpoint for deleting a single post."""
     post = Post.query.get_or_404(post_id)
     # Add verification here to make sure the current user is the author of the post
     db.session.delete(post)
@@ -53,9 +57,11 @@ def delete_post(post_id):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """404 page."""
     # Note that we set the 404 status explicitly
     return render_template("404.html"), 404
 
 
 if __name__ == "__main__":
+    """Run the app."""
     app.run(debug=True)
