@@ -4,6 +4,11 @@ from forms import PostForm
 import os
 
 from dotenv import load_dotenv
+from markupsafe import Markup
+
+def nl2br(value):
+    """Converts newlines in a string to HTML line breaks."""
+    return Markup(value.replace("\n", "<br>\n"))
 
 load_dotenv()
 
@@ -12,6 +17,7 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "site.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.jinja_env.filters['nl2br'] = nl2br
 
 db.init_app(app)
 
