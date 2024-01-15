@@ -6,9 +6,11 @@ import os
 from dotenv import load_dotenv
 from markupsafe import Markup
 
+
 def nl2br(value):
     """Converts newlines in a string to HTML line breaks."""
     return Markup(value.replace("\n", "<br>\n"))
+
 
 load_dotenv()
 
