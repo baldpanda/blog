@@ -4,9 +4,9 @@ from forms import PostForm
 import os
 
 from dotenv import load_dotenv
-from markupsafe import Markup
 import markdown
 from markupsafe import Markup
+
 
 def markdown_to_html(markdown_text):
     html = markdown.markdown(markdown_text)
