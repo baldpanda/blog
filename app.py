@@ -5,6 +5,12 @@ import os
 
 from dotenv import load_dotenv
 from markupsafe import Markup
+import markdown
+from markupsafe import Markup
+
+def markdown_to_html(markdown_text):
+    html = markdown.markdown(markdown_text)
+    return Markup(html)
 
 
 def nl2br(value):
@@ -20,6 +26,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "site.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.jinja_env.filters['nl2br'] = nl2br
+app.jinja_env.filters['markdown'] = markdown_to_html
+
 
 db.init_app(app)
 
@@ -49,7 +57,8 @@ def create_post():
 def post(post_id):
     """Page for viewing a single post."""
     post = Post.query.get_or_404(post_id)
-    return render_template("post.html", post=post)
+    post.content = markdown_to_html(post.content)
+    return render_template('post.html', post=post)
 
 
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
