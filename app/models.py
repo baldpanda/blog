@@ -1,11 +1,13 @@
 from datetime import datetime
-from extensions import db
+from app.extensions import db
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     # Further fields like password, profile picture, etc.
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
