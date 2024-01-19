@@ -12,6 +12,7 @@
     <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post">
         <input type="submit" value="Delete" onclick="return confirmDelete();" class="new-post-link">
     </form>
+    <a href="{{ url_for('home') }}" class="new-post-link">Back to Home</a>
 </div>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </html>
