@@ -1,4 +1,4 @@
-from app.utils import nl2br, markdown_to_html
+from utils import nl2br, markdown_to_html
 
 from markupsafe import Markup
 

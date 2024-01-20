@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect
 from app.extensions import db
 from app.forms import PostForm
-import app.utils as utils
+import utils as utils
 import os
 
 from dotenv import load_dotenv
