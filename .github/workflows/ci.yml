@@ -24,7 +24,7 @@ jobs:
 
     - name: Set Python path
       run: |
-        echo "::add-path::./"
+        echo "PYTHONPATH=$GITHUB_WORKSPACE/app" >> $GITHUB_ENV
 
     - name: Lint with flake8
       run: |
