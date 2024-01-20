@@ -1,3 +1,4 @@
 flask==3.0.0
 Flask-SQLAlchemy
 Flask-WTF
+Markdown==3.5.2
