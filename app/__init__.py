@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from app.extensions import db
 from app.forms import PostForm
 import utils as utils
@@ -66,6 +66,23 @@ def page_not_found(e):
     """404 page."""
     # Note that we set the 404 status explicitly
     return render_template("404.html"), 404
+
+@app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    # Add authorization check here if needed
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        # Redirect to the post view or homepage after editing
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('edit_post.html', title='Edit Post', form=form)
+
 
 
 if __name__ == "__main__":

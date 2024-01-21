@@ -13,6 +13,7 @@
         <input type="submit" value="Delete" onclick="return confirmDelete();" class="new-post-link">
     </form>
     <a href="{{ url_for('home') }}" class="new-post-link">Back to Home</a>
+    <a href="{{ url_for('edit_post', post_id=post.id) }}" class="new-post-link">Edit this post</a>
 </div>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </html>
