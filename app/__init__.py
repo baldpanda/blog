@@ -31,6 +31,7 @@ def home():
 
 
 @app.route("/post/new", methods=["GET", "POST"])
+@utils.login_required
 def create_post():
     """Page for creating a new post."""
     form = PostForm()
