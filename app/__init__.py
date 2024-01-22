@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash, session
 from app.extensions import db
 from app.forms import PostForm
 import utils as utils
@@ -51,6 +51,7 @@ def post(post_id):
 
 
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
+@utils.login_required
 def delete_post(post_id):
     """Endpoint for deleting a single post."""
     post = Post.query.get_or_404(post_id)
@@ -68,7 +69,31 @@ def page_not_found(e):
     return render_template("404.html"), 404
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        if username == os.getenv("ADMIN_USERNAME") and password == os.getenv(
+            "ADMIN_PASSWORD"
+        ):
+            session["logged_in"] = True
+            flash("You were successfully logged in")
+            return redirect(url_for("home"))
+        else:
+            flash("Invalid credentials")
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    session.pop("logged_in", None)
+    flash("You were logged out")
+    return redirect(url_for("home"))
+
+
 @app.route("/post/<int:post_id>/edit", methods=["GET", "POST"])
+@utils.login_required
 def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
     # Add authorization check here if needed
