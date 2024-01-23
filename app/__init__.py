@@ -19,7 +19,7 @@ app.jinja_env.filters["markdown"] = utils.markdown_to_html
 
 db.init_app(app)
 
-from app.routes import app
+from app.routes import app  # noqa: E402
 
 
 if __name__ == "__main__":
