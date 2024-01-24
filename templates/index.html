@@ -9,14 +9,14 @@
 <body>
     <header>
         <h1>BaldPanda Blog</h1>
-        <a href="{{ url_for('create_post') }}" class="new-post-link"> Create New Post </a>
+        <a href="{{ url_for('blog.create_post') }}" class="new-post-link"> Create New Post </a>
     </header>
     <section>
         
         <!-- Blog posts will go here -->
         {% for post in posts %}
         <div>
-            <h2><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <h2><a href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <!-- Other post details -->
         </div>
         {% endfor %}

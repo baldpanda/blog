@@ -8,20 +8,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__, template_folder="../templates", static_folder="../static")
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_PATH")
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.jinja_env.filters["nl2br"] = utils.nl2br
-app.jinja_env.filters["markdown"] = utils.markdown_to_html
 
+def create_app(test_config=None):
+    app = Flask(__name__, template_folder="../templates", static_folder="../static", instance_relative_config=True)
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_PATH")
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.jinja_env.filters["nl2br"] = utils.nl2br
+    app.jinja_env.filters["markdown"] = utils.markdown_to_html
 
-db.init_app(app)
+    if test_config is not None:
+        # Load the test configuration if passed in
+        app.config.from_mapping(test_config)
 
-from app.routes import app  # noqa: E402
-
-
-if __name__ == "__main__":
-    """Run the app."""
-    app.run(debug=True)
+    db.init_app(app)
+    from app.routes import bp as blog_bp
+    app.register_blueprint(blog_bp, url_prefix='/blog')
+    return app
