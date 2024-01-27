@@ -11,7 +11,12 @@ load_dotenv()
 
 
 def create_app(test_config=None):
-    app = Flask(__name__, template_folder="../templates", static_folder="../static", instance_relative_config=True)
+    app = Flask(
+        __name__,
+        template_folder="../templates",
+        static_folder="../static",
+        instance_relative_config=True,
+    )
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_PATH")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -23,8 +28,9 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     db.init_app(app)
-    migrate = Migrate(app, db)
-    
+    Migrate(app, db)
+
     from app.routes import bp as blog_bp
-    app.register_blueprint(blog_bp, url_prefix='/blog')
+
+    app.register_blueprint(blog_bp, url_prefix="/blog")
     return app
