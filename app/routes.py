@@ -1,6 +1,7 @@
 from flask import render_template, url_for, redirect, request, flash, session, Blueprint
 from app.extensions import db
 from app.forms import PostForm
+from app.models import Category
 import utils as utils
 import os
 from dotenv import load_dotenv
@@ -25,6 +26,7 @@ def home():
 def create_post():
     """Page for creating a new post."""
     form = PostForm()
+    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data)
         db.session.add(post)
