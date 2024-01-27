@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import Migrate
 from app.extensions import db
 import utils as utils
 import os
@@ -22,6 +23,8 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     db.init_app(app)
+    migrate = Migrate(app, db)
+    
     from app.routes import bp as blog_bp
     app.register_blueprint(blog_bp, url_prefix='/blog')
     return app
