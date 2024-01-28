@@ -23,9 +23,8 @@ def home():
     for category in categories:
         posts = Post.query.filter_by(category_id=category.id).all()
         posts_by_category[category.name] = posts
-        print(f"Category: {category.name}, Posts: {posts}") 
 
-    return render_template('index.html', posts_by_category=posts_by_category)
+    return render_template("index.html", posts_by_category=posts_by_category)
 
 
 @bp.route("/post/new", methods=["GET", "POST"])
@@ -35,7 +34,11 @@ def create_post():
     form = PostForm()
     form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, category_id=form.category.data)
+        post = Post(
+            title=form.title.data,
+            content=form.content.data,
+            category_id=form.category.data,
+        )
         db.session.add(post)
         db.session.commit()
         return redirect(url_for("blog.home"))
@@ -108,4 +111,3 @@ def edit_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
     return render_template("edit_post.html", title="Edit Post", form=form)
-
