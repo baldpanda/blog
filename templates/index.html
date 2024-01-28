@@ -14,11 +14,13 @@
     <section>
         
         <!-- Blog posts will go here -->
-        {% for post in posts %}
-        <div>
-            <h2><a href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-            <!-- Other post details -->
-        </div>
+        {% for category, posts in posts_by_category.items() %}
+            <h2>{{ category }}</h2>
+            {% for post in posts %}
+                <div class="post">
+                    <h3><a href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a></h3>
+                </div>
+            {% endfor %}
         {% endfor %}
         <img src="{{ url_for('static', filename='images/profile_image.png') }}" alt="Bald Panda Image" class="homepage-image">
     </section>
