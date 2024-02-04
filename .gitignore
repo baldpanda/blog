@@ -190,3 +190,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+static/favicon.ico
+static/images/profile_image.png
