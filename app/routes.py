@@ -101,12 +101,12 @@ def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
     # Add authorization check here if needed
     form = PostForm()
+    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
-        # Redirect to the post view or homepage after editing
-        return redirect(url_for("blog.post", post_id=post.id))
+        return redirect(url_for("blog.home"))
     elif request.method == "GET":
         form.title.data = post.title
         form.content.data = post.content
