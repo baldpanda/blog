@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate
 from app.extensions import db
 import utils as utils
@@ -26,6 +26,12 @@ def create_app(test_config=None):
     if test_config is not None:
         # Load the test configuration if passed in
         app.config.from_mapping(test_config)
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        """404 page."""
+        # Note that we set the 404 status explicitly
+        return render_template("404.html"), 404
 
     db.init_app(app)
     Migrate(app, db)

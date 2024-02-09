@@ -65,13 +65,6 @@ def delete_post(post_id):
     return redirect(url_for("blog.home"))
 
 
-@bp.errorhandler(404)
-def page_not_found(e):
-    """404 page."""
-    # Note that we set the 404 status explicitly
-    return render_template("404.html"), 404
-
-
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
