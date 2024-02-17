@@ -1,4 +1,13 @@
-from flask import render_template, url_for, redirect, request, flash, session, Blueprint, jsonify
+from flask import (
+    render_template,
+    url_for,
+    redirect,
+    request,
+    flash,
+    session,
+    Blueprint,
+    jsonify,
+)
 from app.extensions import db
 from app.forms import PostForm
 from app.models import Category
@@ -107,12 +116,14 @@ def edit_post(post_id):
         form.content.data = post.content
     return render_template("edit_post.html", title="Edit Post", form=form)
 
+
 @bp.route("/ask", methods=["POST"])
 def ask_agent():
-    user_input = request.json.get('user_input') 
+    user_input = request.json.get("user_input")
     agent_response = running_coach.ask_question(user_input)
-    return jsonify({'response': agent_response.get("answers")[0].answer})
+    return jsonify({"response": agent_response.get("answers")[0].answer})
 
-@bp.route('/chat')
+
+@bp.route("/chat")
 def chat():
-    return render_template('chat.html')
+    return render_template("chat.html")
