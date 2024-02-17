@@ -4,3 +4,4 @@ Flask-WTF
 Markdown==3.5.2
 python-dotenv==1.0.0
 Flask-Migrate
+farm-haystack[inference]

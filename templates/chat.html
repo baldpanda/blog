@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Conversational Agent</title>
+    <!-- Add any additional CSS or meta tags as needed -->
+</head>
+<body>
+    <header>
+        <h1>BaldPanda Blog</h1>
+    </header>
+    <div id="chatbox">
+        <!-- This is where the conversation will be displayed -->
+    </div>
+    <input type="text" id="user_input" placeholder="Ask a question...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById('user_input').value;
+            // Display the user's question
+            var chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += "You: " + userInput + "<br>";
+
+            // Send the user's input to the Flask route
+            fetch('/blog/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({user_input: userInput}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the agent's response
+                chatbox.innerHTML += data.response + "<br>";
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+            // Clear the input field
+            document.getElementById('user_input').value = '';
+        }
+    </script>
+    <footer>
+        <p>Bald Panda Blog</p>
+    </footer>
+</body>
+</html>
