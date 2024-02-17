@@ -1,10 +1,21 @@
-from flask import render_template, url_for, redirect, request, flash, session, Blueprint
+from flask import (
+    render_template,
+    url_for,
+    redirect,
+    request,
+    flash,
+    session,
+    Blueprint,
+    jsonify,
+)
 from app.extensions import db
 from app.forms import PostForm
 from app.models import Category
 import utils as utils
 import os
 from dotenv import load_dotenv
+
+import app.running_coach as running_coach
 
 from app.models import Post  # noqa: E402
 
@@ -104,3 +115,15 @@ def edit_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
     return render_template("edit_post.html", title="Edit Post", form=form)
+
+
+@bp.route("/ask", methods=["POST"])
+def ask_agent():
+    user_input = request.json.get("user_input")
+    agent_response = running_coach.ask_question(user_input)
+    return jsonify({"response": agent_response.get("answers")[0].answer})
+
+
+@bp.route("/chat")
+def chat():
+    return render_template("chat.html")
