@@ -8,4 +8,4 @@ Personal blog written using the [Flask web framework](https://flask.palletsproje
 
 #### Conversational Agent Notes
 
-Following a [Haytack tutorial](https://haystack.deepset.ai/tutorials/24_building_chat_app) for building a conversational agent and integrating it into the Flask application. Model being used for the conversational agent is `Zephyr 7B β`. Link on HuggingFace [here](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)
+Following a [Haytack tutorial](https://haystack.deepset.ai/tutorials/24_building_chat_app) for building a conversational agent and integrating it into the Flask application. Model being used for the conversational agent is `Zephyr 7B β`. Link on HuggingFace [here](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta). 
