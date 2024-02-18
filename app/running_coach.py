@@ -21,7 +21,7 @@ Final Answer: [final answer to the human user's question]
 
 The AI Agent should not ask the human user for additional information, clarification, or context.
 
-Question: {query}
+Question: {query} 
 """
 
 prompt_node = PromptNode(
