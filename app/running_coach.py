@@ -6,10 +6,13 @@ from haystack.nodes import PromptNode
 model_api_key = os.getenv("HF_API_KEY", None)
 
 running_coach_prompt_template = """
-In the following conversation, a human user interacts with an Running Coach AI Agent. The human user poses running related questions, and the AI Agent goes through several steps to provide well-informed answers.
+In the following conversation, a human user interacts with an Running Coach AI Agent.
+The human user poses running related questions, and the AI Agent goes through several steps
+to provide well-informed answers.
 If the AI Agent knows the answer, the response begins with "Final Answer:" on a new line.
 
-If the question the human poses is not running related, the agent must response with "the question is not running related" as it is only design for running related queries
+If the question the human poses is not running related, the agent must response with
+"the question is not running related" as it is only design for running related queries
 
 The following is the previous conversation between a human and an AI:
 {memory}
@@ -21,7 +24,7 @@ Final Answer: [final answer to the human user's question]
 
 The AI Agent should not ask the human user for additional information, clarification, or context.
 
-Question: {query} 
+Question: {query}
 """
 
 prompt_node = PromptNode(
@@ -29,13 +32,15 @@ prompt_node = PromptNode(
     api_key=model_api_key,
     max_length=256,
     stop_words=["Human"],
-    default_prompt_template=running_coach_prompt_template
+    default_prompt_template=running_coach_prompt_template,
 )
 
 summary_memory = ConversationSummaryMemory(prompt_node)
 
 conversational_agent = ConversationalAgent(
-    prompt_node=prompt_node, memory=summary_memory, prompt_template=running_coach_prompt_template
+    prompt_node=prompt_node,
+    memory=summary_memory,
+    prompt_template=running_coach_prompt_template,
 )
 
 
