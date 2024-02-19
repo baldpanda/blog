@@ -27,7 +27,6 @@ prompt_node = PromptNode(
     api_key=model_api_key,
     max_length=256,
     stop_words=["Human"],
-    default_prompt_template=running_coach_prompt_template,
 )
 
 summary_memory = ConversationSummaryMemory(prompt_node)
