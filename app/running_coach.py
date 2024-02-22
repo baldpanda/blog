@@ -3,6 +3,8 @@ from haystack.agents.memory import ConversationSummaryMemory
 from haystack.agents.conversational import ConversationalAgent
 from haystack.nodes import PromptNode
 
+LLM_MODEL_NAME = "HuggingFaceH4/zephyr-7b-beta"
+MAX_MODEL_OUTPUT_LENGTH = 512
 model_api_key = os.getenv("HF_API_KEY", None)
 
 running_coach_prompt_template = """
@@ -23,9 +25,9 @@ Question: {query}
 """
 
 prompt_node = PromptNode(
-    model_name_or_path="HuggingFaceH4/zephyr-7b-beta",
+    model_name_or_path=LLM_MODEL_NAME,
     api_key=model_api_key,
-    max_length=512,
+    max_length=MAX_MODEL_OUTPUT_LENGTH,
     stop_words=["Human"],
 )
 
