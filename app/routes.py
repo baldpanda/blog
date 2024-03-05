@@ -124,6 +124,6 @@ def ask_agent():
     return jsonify({"response": agent_response.get("answers")[0].answer})
 
 
-@bp.route("/chat")
-def chat():
-    return render_template("chat.html")
+@bp.route("/running-coach")
+def running_coach():
+    return render_template("running_coach.html")
