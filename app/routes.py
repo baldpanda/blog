@@ -125,5 +125,5 @@ def ask_agent():
 
 
 @bp.route("/running-coach")
-def running_coach():
+def ask_running_coach():
     return render_template("running_coach.html")
