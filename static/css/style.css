@@ -63,6 +63,6 @@ textarea {
 }
 
 form {
-    max-width: 800px; /* Sets a maximum width for the form */
+    max-width: 1300px; /* Sets a maximum width for the form */
     margin: auto; /* Centers the form in the page */
 }
