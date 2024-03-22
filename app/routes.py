@@ -61,7 +61,7 @@ def post(post_id):
     """Page for viewing a single post."""
     post = Post.query.get_or_404(post_id)
     post.content = utils.markdown_to_html(post.content)
-    return render_template("post.html", post=post)
+    return render_template("post.html", post=post, session=session)
 
 
 @bp.route("/post/<int:post_id>/delete", methods=["POST"])

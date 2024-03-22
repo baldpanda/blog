@@ -14,13 +14,17 @@
     </header>
     <h2>{{ post.title }}</h2>
     <p>{{ post.content | markdown }}</p>
-    <!-- Delete button -->
-    <form action="{{ url_for('blog.delete_post', post_id=post.id) }}" method="post">
-        <input type="submit" value="Delete" onclick="return confirmDelete();" class="new-post-link">
-    </form>
 </div>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-<a href="{{ url_for('blog.edit_post', post_id=post.id) }}" class="new-post-link">Edit this post</a>
+{% if session.logged_in %}
+    <div class="post-actions">
+        <a href="{{ url_for('blog.edit_post', post_id=post.id) }}" class="new-post-link">Edit this post</a>
+        <!-- Delete button -->
+        <form action="{{ url_for('blog.delete_post', post_id=post.id) }}" method="post" class="inline-form">
+            <input type="submit" value="Delete" onclick="return confirmDelete();" class="new-post-link">
+        </form>
+    </div>
+{% endif %}
 <footer>
     <p>Bald Panda Blog</p>
 </footer>
